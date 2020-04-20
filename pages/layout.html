@@ -1,0 +1,263 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %} {% endblock%}</title>
+	<!-- <title>{% if title == none  %}Online Hotel Management System{%else%}{{ title }}{% endif %}</title> -->
+	<link rel="icon" type="image/jpg" href="/">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  
+	<!-- <link rel="stylesheet" href="{% static 'bootstrap/4.0.0/css/bootstrap.min.css' %}">
+	<script src="{% static 'bootstrap/4.0.0/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'libs/jquery/3.4.1/jquery.min.js' %}"></script>
+	<script src="{% static 'libs/popper.js/1.16.0/umd/popper.min.js' %}"></script> -->
+
+	<link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed:300i,400,500,500i,600,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'main-assets/style.css' %}">
+
+  <!-- CDN  -->
+  <!-- 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+ -->  
+
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> -->
+
+<!-- Google Tranaslate Start  -->
+<!-- <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script> -->
+<!-- Google Tranaslate End  -->
+
+<script src="{% static 'js/javascript.js' %}"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LclH-cUAAAAAFfy6MJS9Xyh-d5SR0uWbUU4C2TO"></script>
+<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+<style>
+.grecaptcha-badge {
+	z-index: 999999;
+}
+</style>
+
+
+{% block add_in_head %}
+	 
+{% endblock%}
+</head>
+<body>
+<!-- <header>
+	<div class="container">
+		<div class="row">
+			<div class="logo" align="center">
+				<h2>Online Hotel Management System</h2>
+			</div>
+			<div class="menu">
+				<nav>
+					<ul>
+						<li><a href="/">Home</a></li>
+					{% if user.is_authenticated  %}
+						<li><a href="/user">My Account</a></li>
+						<li><a href="{% url 'logoutUser' %}">Logout</a></li>
+					{% else %}
+						<li><a href="{% url 'loginUser' %}">Login</a></li>
+						<li><a href="/register">Register</a></li>
+					{% endif %}
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</header> -->
+<!-- Preloader -->
+   <!--  <div class="preloader d-flex align-items-center justify-content-center">
+		<div class="cssload-container">
+			<div class="cssload-loading"><i></i><i></i><i></i><i></i></div>
+		</div>
+	</div> -->
+
+	<!-- ##### Header Area Start ##### -->
+	<header class="header-area">
+		<!-- Navbar Area -->
+		<div class="hotel-main-menu">
+			<div class="classy-nav-container breakpoint-off">
+				<div class="container">
+					<!-- Menu -->
+					<nav class="classy-navbar justify-content-between" id="hotelNav">
+
+						<!-- Nav brand -->
+						<a href="/" class="nav-brand">
+							<!-- <img src="{% static 'main-assets/img/core-img/logo.png' %}" alt=""> -->
+							<h2 style="color: white;">Hotel.Com</h2>
+						</a>
+
+						<!-- Navbar Toggler -->
+						<div class="classy-navbar-toggler">
+							<span class="navbarToggler"><span></span><span></span><span></span></span>
+						</div>
+
+						<!-- Menu -->
+						<div class="classy-menu">
+
+							<!-- close btn -->
+							<div class="classycloseIcon">
+								<div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+							</div>
+
+							<!-- Nav Start -->
+							<div class="classynav">
+								<ul>
+									<li class="{% if request.resolver_match.url_name == 'Home' %}active{% endif %}"><a href="/">Home</a></li>
+									<li class="{% if request.resolver_match.url_name == 'About_Us' %}active{% endif %}"><a href="/about-us" >  About Us</a></li>
+									<li style="display: none;"><a href="#">Pages</a>
+										<ul class="dropdown">
+											<li><a href="/">Home</a></li>
+											<li><a href="#">About Us</a></li>
+											<li><a href="#">Services</a></li>
+											<li><a href="#">Rooms</a></li>
+											<li><a href="#">News</a></li>
+											<li><a href="#">Contact</a></li>
+											<li><a href="#">Elements</a></li>
+										</ul>
+									</li>
+									<li style="display: none;"><a href="#">Mega Menu</a>
+										<div class="megamenu">
+											<ul class="single-mega cn-col-4">
+												<li><a href="index">Home</a></li>
+												<li><a href="about-us">About Us</a></li>
+												<li><a href="services">Services</a></li>
+												<li><a href="rooms">Rooms</a></li>
+												<li><a href="blog">News</a></li>
+												<li><a href="contact">Contact</a></li>
+												<li><a href="elements">Elements</a></li>
+											</ul>
+											<ul class="single-mega cn-col-4">
+												<li><a href="index">Home</a></li>
+												<li><a href="about-us">About Us</a></li>
+												<li><a href="services">Services</a></li>
+												<li><a href="rooms">Rooms</a></li>
+												<li><a href="blog">News</a></li>
+												<li><a href="contact">Contact</a></li>
+												<li><a href="elements">Elements</a></li>
+											</ul>
+											<ul class="single-mega cn-col-4">
+												<li><a href="index.html">Home</a></li>
+												<li><a href="about-us.html">About Us</a></li>
+												<li><a href="services.html">Services</a></li>
+												<li><a href="rooms.html">Rooms</a></li>
+												<li><a href="blog.html">News</a></li>
+												<li><a href="contact.html">Contact</a></li>
+												<li><a href="elements.html">Elements</a></li>
+											</ul>
+											<ul class="single-mega cn-col-4">
+												<li><a href="index.html">Home</a></li>
+												<li><a href="about-us.html">About Us</a></li>
+												<li><a href="services.html">Services</a></li>
+												<li><a href="rooms.html">Rooms</a></li>
+												<li><a href="blog.html">News</a></li>
+												<li><a href="contact.html">Contact</a></li>
+												<li><a href="elements.html">Elements</a></li>
+											</ul>
+										</div>
+									</li>
+									<li><a href="/">Services</a></li>
+									<li><a href="/">Contact</a></li>
+								</ul>
+
+								<!-- Button -->
+								<div class="menu-btn">
+									<a href="/login" class="btn hotel-btn">Make a Reservation</a>
+								</div>
+								<div id="g_translate">
+									<div id="google_translate_element"></div>
+								</div>
+
+							</div>
+							<!-- Nav End -->
+						</div>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- ##### Header Area End ##### -->
+<main >
+		{% block content %}
+			 
+		{% endblock%}
+		
+</main>
+<!-- ##### Footer Area Start ##### -->
+	<footer class="footer-area">
+		<div class="container">
+			<div class="row">
+
+				<!-- Footer Widget Area -->
+				<div class="col-12 col-lg-5">
+					<div class="footer-widget-area mt-50">
+						<a href="#" class="d-block mb-5">
+							<!-- <img src="{% static 'main-assets/img/core-img/logo.png' %}" alt=""> -->
+							<h2 style="color: white;">Hotel.Com</h2>
+						</a>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris sceleri sque, at rutrum nulla dictum. Ut ac ligula sapien. Suspendisse cursus faucibus finibus. </p>
+					</div>
+				</div>
+
+				<!-- Footer Widget Area -->
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="footer-widget-area mt-50">
+						<h6 class="widget-title mb-5">Find us on the map</h6>
+						<img src="{% static 'main-assets/img/bg-img/footer-map.png' %}" alt="">
+					</div>
+				</div>
+
+				<!-- Footer Widget Area -->
+				<div class="col-12 col-md-6 col-lg-3">
+					<div class="footer-widget-area mt-50">
+						<h6 class="widget-title mb-5">Subscribe to our newsletter</h6>
+						<form action="#" method="post" class="subscribe-form">
+							<input type="email" name="subscribe-email" id="subscribeemail" placeholder="Your E-mail">
+							<button type="submit">Subscribe</button>
+						</form>
+					</div>
+				</div>
+
+				<!-- Copywrite Text -->
+				<div class="col-12">
+					<div class="copywrite-text mt-30">
+						<p><a href="#"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- ##### Footer Area End ##### -->
+
+	<!-- ##### All Javascript Script ##### -->
+	<!-- jQuery-2.2.4 js -->
+	<script src="{% static 'main-assets/js/jquery/jquery-2.2.4.min.js' %}"></script>
+	<!-- Popper js -->
+	<script src="{% static 'main-assets/js/bootstrap/popper.min.js' %}"></script>
+	<!-- Bootstrap js -->
+	<script src="{% static 'main-assets/js/bootstrap/bootstrap.min.js' %}"></script>
+	<!-- All Plugins js -->
+	<script src="{% static 'main-assets/js/plugins/plugins.js' %}"></script>
+	<!-- Active js -->
+	<script src="{% static 'main-assets/js/active.js' %}"></script>
+{% block add_in_footer %}
+	 
+{% endblock%}
+</body>
+</html>

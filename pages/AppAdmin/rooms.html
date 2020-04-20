@@ -1,0 +1,246 @@
+{% extends 'AppAdmin/layout.html' %}
+{% load static %}
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Rooms List</h3>
+          <div class="float-right d-none d-sm-inline-block">
+            <a href="add-room" class="btn btn-primary">Add Room</a>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Room No</th>
+                <th>Room Type</th>
+                <th>Price</th>
+                <th>Details</th>
+                <th>Publish</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Image</th>
+                <th>Room No</th>
+                <th>Room Type</th>
+                <th>Price</th>
+                <th>Details</th>
+                <th>Publish</th>
+                <th>Action</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.card-body -->
+        <!-- </div> -->
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+  </div>
+  <!-- /.Edit modal -->
+  <div class="modal fade" id="edit-room-modal">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Room No: <span id="show_room_no" class=""></span> </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form role="form" id="room_details" method="post" action="{% url 'SaveRoomDetails' %}">
+            <div class="form-group">
+              <label for="room_type">Room Type</label>
+              <input type="text" class="form-control" name="room_type" id="room_type" placeholder="Room Type" list="room_type_list" autocomplete="off">
+              <datalist id="room_type_list">
+              <option> Deluxe Room</option>
+              <option>Luxurious Suite</option>
+              <option>Standard Room</option>
+              <option>Suite</option>
+              <option>Twin Deluxe Room</option>
+              </datalist>
+            </div>
+            <div class="form-group">
+              <label for="room_image">Room Image</label>
+              <div > 
+                <img src="" id="room_view_img" height="70px">
+              </div>
+              <div class="input-group">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" name="room_image" id="room_image">
+                  <label class="custom-file-label" for="room_image">Choose file</label>
+                </div>
+                <!--  <div class="input-group-append">
+                  <span class="input-group-text" id="">Upload</span>
+                </div> -->
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input type="text" class="form-control" name="price" id="price" placeholder="Room No">
+            </div>
+            <div class="form-group">
+              <label for="details">Room Details</label>
+              <!-- <input type="text" class="form-control" > -->
+              <textarea id="details" name="details" rows="3" placeholder="Room Details" class="textarea" style="width: 100%;  font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+            </div>
+            <div class="icheck-primary d-inline">
+              <input type="checkbox" class="form-check-input" name="is_publish" id="is_publish">
+              <label class="form-check-label" for="is_publish">Publish</label>
+            </div>
+            <div id="tempResult"></div>
+            <!-- /.card-body -->
+            <!-- <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div> -->
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="close-edit-room-modal">Close</button>
+              <input type="hidden" name="room_no" id="room_no">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary" id="save_data">Save changes</button>
+        </div>
+          </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+{% endblock %}
+{% block add_in_head %}
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'admin-assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'admin-assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+  <style>
+  img.room-image{
+  height: 50px;
+  width: auto;
+  }
+  </style>
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="{% static 'admin-assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css' %}">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="{% static 'admin-assets/plugins/toastr/toastr.min.css' %}">
+{% endblock %}
+{% block add_in_footer %}
+<!-- DataTables -->
+<script src="{% static 'admin-assets/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin-assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin-assets/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'admin-assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<!-- Summernote -->
+<script src="{% static 'admin-assets/plugins/summernote/summernote-bs4.min.js' %}"></script>
+<!-- SweetAlert2 -->
+<script src="{% static 'admin-assets/plugins/sweetalert2/sweetalert2.min.js' %}"></script>
+<!-- Toastr -->
+<script src="{% static 'admin-assets/plugins/toastr/toastr.min.js' %}"></script>
+
+<script>
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+
+function show_sweet_alert(msg_type, msg) {
+   Toast.fire({
+    type: msg_type,
+    title: msg
+  })
+}
+
+$(document).ready(function () {
+    url =  "{% url 'dataTableAjax' %}",
+    table_val = $("#example1").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "processing": true,
+        "ajax": "{% url 'dataTableAjax' %}",
+        "serverSide": true,
+    });
+    
+    $("#room_details").submit(function(e){
+        var frm = $(this);
+        e.preventDefault();
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function (data) {
+                $('#close-edit-room-modal').click()
+                table_val.ajax.reload( null, false );
+                show_sweet_alert(data.status, data.message)
+            },
+            error:function() {
+                toastr.error(' Invaild Input!')
+                
+            }
+        });
+    });
+});
+
+function EditMyRoom(obj){
+    room_no = $(obj).attr('room-no');
+    // alert( room_no)
+    $.ajax({
+        url: "/admin/get-room-details/",
+        type: 'post',
+        data: {
+            csrfmiddlewaretoken: '{{csrf_token}}',
+            id: room_no,
+        },
+        success: function(data) {
+            if (data.status == 'success') {
+                $('.textarea#details').summernote('destroy')
+                $("#edit-room-modal #room_no").val(data.data.room_no)
+                $("#edit-room-modal #show_room_no").text(data.data.room_no)
+                $("#edit-room-modal #room_type").val(data.data.room_type)
+                $("#edit-room-modal #price").val(data.data.price)
+                $("#edit-room-modal #details").val(data.data.details)
+                $("#room_view_img").attr('src', "/"+data.data.image)
+
+                if (data.data.is_publish == true) {
+                    $("#edit-room-modal #is_publish").prop( "checked", true );
+                }
+                else{
+                    $("#edit-room-modal #is_publish").prop( "checked", false );
+                }
+            }
+            else{
+                toastr.error('Failed to load data!')
+            }
+             
+
+            $('.textarea#details').summernote({
+                height: 90
+            })
+        },
+        error:function() {
+            toastr.error(' Failed to load data!')
+            
+        }
+    });
+}
+/*$(document).ready(function(){
+  $(function () {
+  // Summernote
+    $('.textarea').summernote({
+       height: 90,
+    })
+  });
+ });*/
+   </script>
+{% endblock %}

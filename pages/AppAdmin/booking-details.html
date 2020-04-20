@@ -1,0 +1,133 @@
+{% extends 'AppAdmin/layout.html' %}
+{% load static %}
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{request.resolver_match.url_name}}</h3>
+          <div class="float-right d-none d-sm-inline-block">
+          <a href="room/new-booking-entry" class="btn btn-primary">Add New Booking</a>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email ID</th>
+                <th>Mobile No.</th>
+                <th>Room No</th>
+                <th>Check in Date</th>
+                <th>Check Out Date & Time</th>
+                <th>Occupancy</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in rooms_orders %}
+              <tr>
+                <td>
+                  {% if order.user.first_name or order.user.last_name %}
+                    {{order.user.first_name}} {{order.user.last_name}}
+                  {% else %}
+                    {{order.user.username}}
+                  {% endif %}
+                </td>
+                <td> 
+                  {% if order.user.email %}
+                    {{order.user.email}}
+                  {% else %} ---- {% endif  %}
+                </td>
+                <td>
+                  {% if order.user.mobile_no %}
+                    {{order.user.mobile_no}}
+                  {% else %} ---- {% endif  %}
+                 </td>
+                <td><span class="room_no" title="{{order.room.room_type}}" data-toggle="tooltip" data-placement="right"> {{order.room.room_no}} </span> </td>
+                <td> {{order.check_in_date}}</td>
+                <td>{{order.check_out_date}}</td>
+                <td>{{order.occupancy}}</td>
+                <td>
+                 <a href="#" class="btn btn-block btn-success btn-sm">Accept </a> 
+                  <a href="#" class="btn btn-block btn-danger btn-sm" > Cancle </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+              <th>Name</th>
+                <th>Mobile No.</th>
+                <th>Room No</th>
+                <th>Room Type</th>
+                <th>Check in Date</th>
+                <th>Check Out Date & Time</th>
+                <th>Occupancy</th>
+                <th>Action</th>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.card-body -->
+        <!-- </div> -->
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+  </div>
+{% endblock %}
+{% block add_in_head %}
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'admin-assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'admin-assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+
+<style>
+img.room-image{
+  height: 50px;
+  width: auto;
+}
+table tr td a{
+  margin-top: 5px;
+  margin-left: 5px;
+}
+span.room_no{
+  cursor: default;
+}
+</style>
+{% endblock %}
+{% block add_in_footer %}
+  <!-- DataTables -->
+  <script src="{% static 'admin-assets/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'admin-assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'admin-assets/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+  <script src="{% static 'admin-assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+  <script>
+  $(function () {
+  $("#example1").DataTable({
+  "responsive": true,
+  "autoWidth": false,
+  // "paging": false,
+  //   "lengthChange": false,
+  //   "searching": false,
+  //   "ordering": true,
+  // "info": false,
+  });
+  // $('#example2').DataTable({
+  //   "paging": true,
+  //   "lengthChange": false,
+  //   "searching": false,
+  //   "ordering": true,
+  //   "info": true,
+  //   "autoWidth": false,
+  //   "responsive": true,
+  // });
+  });
+
+  $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+  </script>
+{% endblock %}

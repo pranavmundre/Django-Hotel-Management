@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+	<input type="text" name="room_no" id="room_no">
+<button id="testval">test</button>
+<p></p>
+
+{% csrf_token %}
+<script>
+	
+$(document).ready(function(){
+	$('#testval').click(function(){
+		// alert('test')
+		$('p').append('ok <br> ')
+		room_no = $('#room_no').val()
+		csrf_token = $('input[name=csrfmiddlewaretoken]').val()
+		$.ajax({
+		    url: "/admin/get-room-details/",
+		    // url: "/ajax/get",
+		    type: 'post',
+		    data: {
+		    	csrfmiddlewaretoken: csrf_token,
+		    	id: room_no,
+		    },
+		    success: function(data) {
+		        // alert(data);
+		    },
+		    // failure: function(data) { 
+		    //     alert('Got an error dude');
+		    // }
+		}); 
+	});
+});
+</script>
+</body>
+</html>

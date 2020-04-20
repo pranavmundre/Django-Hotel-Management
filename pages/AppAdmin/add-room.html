@@ -1,0 +1,142 @@
+{% extends 'AppAdmin/layout.html' %}
+{% load static %}
+{% block content %}
+  <div class="container-fluid">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.message.alert_box }} alert-dismissible">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h5><i class="icon fas fa-{{ message.message.icon }}"></i> Alert!</h5>
+          {{message.message.msg}}
+        </div>
+      {% endfor %}
+    {% endif %}
+    <div class="row">
+      <!-- left column -->
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="card card-primary">
+          <div class="card-header">
+            <h3 class="card-title">{{request.resolver_match.url_name}}</h3>
+          </div>
+          <!-- /.card-header -->
+          <!-- form start -->
+          <form role="form" action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+                  
+            {{ form.non_field_errors }}
+            <div class="card-body row">
+              <div class="col-md-6">
+                <div class="form-group ">
+                  <label for="{{form.room_no.id_for_label}}">{{form.room_no.label}}</label>
+                  {{form.room_no}}
+                   
+                  {% if form.room_no.errors  %}
+                    <div class="invalid-feedback" style="display: block;">{{ form.room_no.errors }}</div>
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  <label for="{{form.room_type.id_for_label}}">Room Type</label>
+                  {{form.room_type}}
+                  <datalist id="room_type_list">
+                    <option> Deluxe Room</option>
+                    <option>Luxurious Suite</option>
+                    <option>Standard Room</option>
+                    <option>Suite</option>
+                    <option>Twin Deluxe Room</option>
+                  </datalist>
+                   
+                  {% if form.room_type.errors  %}
+                    <div class="invalid-feedback" style="display: block;">{{ form.room_type.errors }}</div>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="{{form.price.id_for_label}}">Price</label>
+                  {{form.price}}
+                  {% if form.price.errors  %}
+                    <div class="invalid-feedback" style="display: block;">{{ form.price.errors }}</div>
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                  <label for="{{form.image.id_for_label}}">Room Image</label>
+                  <div class="input-group">
+                    <div class="custom-file">
+                      {{form.image}}
+                      <label class="custom-file-label" for="{{form.image.id_for_label}}">Choose file</label>
+                    </div>
+                      {% if form.image.errors  %}
+                        <div class="invalid-feedback" style="display: block;">{{ form.image.errors }}</div>
+                      {% endif %}
+                    <!-- <div class="input-group-append">
+                      <span class="input-group-text" id="upload-image">Upload</span>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="{{form.details.id_for_label}}">Details</label>
+                  {{form.details}}
+                  {% if form.details.errors  %}
+                    <div class="invalid-feedback" style="display: block;">{{ form.details.errors }}</div>
+                  {% endif %}
+                </div>
+              </div>
+              
+              
+              <div class="icheck-primary d-inline col-md-2">
+                {{form.is_publish}}
+                <label for="{{form.is_publish.id_for_label   }}">Publish</label>
+                {% if form.is_publish.errors  %}
+                    <div class="invalid-feedback" style="display: block;">{{ form.is_publish.errors }}</div>
+                  {% endif %}
+               
+                 
+              </div>
+             <div class="col-md-4" style="display: none !important; ">
+                <div class="form-group">
+                  <label for="{{form.published_date.id_for_label}}">Publish Date</label>
+                  {{form.published_date}}
+                   {% if form.published_date.errors  %}
+                    <div class="invalid-feedback" style="display: block;">{{ form.published_date.errors }}</div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <button type="submit" name="submit" id="submit" class="btn btn-primary">Submit  </button>
+            </div>
+          </form>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block add_in_footer %}
+  <!-- bs-custom-file-input -->
+  <script src="{% static 'admin-assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js' %}"></script>
+  <!-- Summernote -->
+  <script src="{% static 'admin-assets/plugins/summernote/summernote-bs4.min.js' %}"></script>
+  <script>
+  $(function () {
+  // Summernote
+    $('.textarea, input#id_details').summernote({
+      height:150,
+    })
+  })
+  $(document).ready(function () {
+    bsCustomFileInput.init();
+
+    // $("input").addClass("form-control")
+    // $("input[type=file],input[type=checkbox]").removeClass("form-control")
+    // $("input[type=file]").addClass("custom-file-input")
+    // $("input#id_published_date").attr("type", "datetime-local")
+
+
+  });
+  </script>
+{% endblock %}

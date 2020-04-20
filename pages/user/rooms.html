@@ -1,0 +1,176 @@
+{% extends 'user/layout.html' %}
+{% load static %}
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Rooms List</h3>
+          <div class="float-right d-none d-sm-inline-block">
+            <a href="add-room" class="btn btn-primary">Add Room</a>
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Room No</th>
+                <th>Room Type</th>
+                <th>Price</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for room in rooms_data %}
+                <tr>
+                  <td><img src="/media/{{room.image}}" class="room-image"></td>
+                  <td>{{room.room_no}} </td>
+                  <td>{{room.room_type}} </td>
+                  <td> {{room.price}}</td>
+                  <td>{{room.details}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+              <th>Image</th>
+              <th>Room No</th>
+              <th>Type</th>
+              <th>Price</th>
+              <th>Details</th>
+            </tr>
+            </tfoot>
+          </table>
+        </div>
+        <!-- /.card-body -->
+        <!-- </div> -->
+        <!-- /.card -->
+      </div>
+      <!-- /.col -->
+    </div>
+  </div>
+  <!-- /.Edit modal -->
+  <div class="modal fade" id="edit-room-modal">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Room </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form role="form">
+            <div class="form-group">
+              <label for="room_no">Room No</label>
+              <input type="email" class="form-control" id="room_no" placeholder="Room No">
+            </div>
+            <div class="form-group">
+              <label for="room_type">Room Type</label>
+              <input type="text" class="form-control" id="room_type" placeholder="Room Type" list="room_type_list" autocomplete="off">
+              <datalist id="room_type_list">
+              <option> Deluxe Room</option>
+              <option>Luxurious Suite</option>
+              <option>Standard Room</option>
+              <option>Suite</option>
+              <option>Twin Deluxe Room</option>
+              </datalist>
+            </div>
+            <div class="form-group">
+              <label for="room_image">Room Image</label>
+              <div class="input-group">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="room_image">
+                  <label class="custom-file-label" for="room_image">Choose file</label>
+                </div>
+                <!--  <div class="input-group-append">
+                  <span class="input-group-text" id="">Upload</span>
+                </div> -->
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input type="text" class="form-control" id="price" placeholder="Room No">
+            </div>
+            <div class="form-group">
+              <label for="details">Room Details</label>
+              <!-- <input type="text" class="form-control" > -->
+              <textarea id="details" rows="3" placeholder="Room Details" class="textarea" style="width: 100%;  font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+            </div>
+            <div class="icheck-primary d-inline">
+              <input type="checkbox" class="form-check-input" id="is_publish">
+              <label class="form-check-label" for="is_publish">Publish</label>
+            </div>
+            <div id="tempResult"></div>
+            <!-- /.card-body -->
+            <!-- <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div> -->
+          </form>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+{% endblock %}
+{% block add_in_head %}
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'admin-assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'admin-assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+  <style>
+  img.room-image{
+  height: 50px;
+  width: auto;
+  }
+  </style>
+{% endblock %}
+{% block add_in_footer %}
+  <!-- DataTables -->
+  <script src="{% static 'admin-assets/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'admin-assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'admin-assets/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+  <script src="{% static 'admin-assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+  <!-- Summernote -->
+  <script src="{% static 'admin-assets/plugins/summernote/summernote-bs4.min.js' %}"></script>
+  <script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    // "paging": false,
+    //   "lengthChange": false,
+    //   "searching": false,
+    //   "ordering": true,
+    // "info": false,
+    });
+  });
+  $(document).ready(function(){
+    $(function () {
+    // Summernote
+      $('.textarea').summernote()
+    });
+    
+    $("a#EditRoom").click(function(){
+      room_no = $(this).attr('room-no');
+      // alert()
+      $.ajax({url: "/admin/get-room-details/"+room_no, success: function(result){
+        $("tempResult").html(result);
+      }});
+    });
+
+  });
+  // function EditRoom(this_val){
+  //     alert()
+
+  //   }
+  </script>
+{% endblock %}

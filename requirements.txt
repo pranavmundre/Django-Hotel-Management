@@ -1,0 +1,6 @@
+django-admin=3.0
+social-auth-app-django
+PyMySQL
+decorator
+numpy
+requests

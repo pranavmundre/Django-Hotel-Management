@@ -1,0 +1,70 @@
+header div.logo h2{
+	font-family: "Barlow Semi Condensed";
+    font-weight: 800;
+    color: #946226;
+}
+footer{
+	padding: 10px;
+	background-color: #d0cdcd;
+}
+body{
+	margin: 0;
+
+}
+/*header div.innerWrap,main,footer div{
+	max-width: 1140px;
+	margin: auto;
+}*/
+main{
+	
+}
+
+/*header .container div {
+    display: inline-block;
+}*/
+header div.menu nav ul li {
+    display: inline-block;
+    /*margin: 0 4px;*/
+}
+header div.menu nav ul li a {
+    padding: 10px 19px;
+    background-color: lightgray;
+    font-size: 16px;
+    /* font-weight: 600; */
+    text-transform: uppercase;
+    text-decoration: none;
+    color: black;
+	-webkit-transition: 0.3s;
+}
+header div.menu nav ul li a:hover{
+	background-color: gray;
+	color: white;
+	-webkit-transition: 0.3s;
+	
+
+}
+header div.menu {
+    float: right;
+        margin-top: 11px;
+}
+header {
+	background-color: whitesmoke;
+	    padding: 10px 0;
+}
+
+p{
+	position: relative;
+}
+
+
+@media only screen and (max-width: 959px){
+	header div.menu nav ul li a {
+		padding: 5px 10px;
+	    background-color: lightgray;
+	    font-size: 14px;
+	    font-weight: 500;
+	}
+	header div.logo h2 {
+	    font-size: 29px;
+	}
+}
