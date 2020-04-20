@@ -52,7 +52,8 @@ INSTALLED_APPS = [
 	'social_django',
 	'rest_framework',
 	'api',
-
+	'django.contrib.sitemaps',
+	# 'robots',
 	# 'api.apps.apiConfig',
 ]
 

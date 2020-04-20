@@ -3,6 +3,15 @@ from django.contrib.auth import views as auth_views
 
 from.import views
 
+
+from .sitemap import HotelSitemap
+
+ 
+
+from django.contrib.sitemaps import views as sitemap_view
+
+sitemaps = {}
+
 urlpatterns = [
 	path('', views.index, name='Home'  ),
 	path('login/', views.loginUser, name='loginUser'  ),
@@ -17,6 +26,16 @@ urlpatterns = [
 	path('ajax/get', views.getData, name='getData'  ),
 
 	path('test/', views.Test, name='Test'  ),
+	# path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+	path('sitemap.xml', sitemap_view.index, {
+			'sitemaps': sitemaps, 
+			'template_name': 'sitemap.html',
+		} ),
+
+	path('sitemap_index.xml', sitemap_view.index, {
+			'sitemaps': sitemaps, 
+			'template_name': 'sitemap.html',
+		}, name='django.contrib.sitemaps.views.sitemap'),
 
 
 

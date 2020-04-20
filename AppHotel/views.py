@@ -24,9 +24,9 @@ def Test(request):
 		val = 'new session' 
 
 	print("Session Val: ", val )
-	data = '<?xml version="1.0" encoding="UTF-8"?><site>	<url>text</url></site>'
-	return HttpResponse(  data, 'application/xml')
-	# return render( request, 'test.html',{'data':context})
+	# data = '<?xml version="1.0" encoding="UTF-8"?><site>	<url>text</url></site>'
+	# return HttpResponse(  data, 'application/xml')
+	return render( request, 'test.html',{'data':context})
 
 # @login_required(login_url='login')
 def index(request):
@@ -119,3 +119,8 @@ def getData(request):
 		data={'status':'3','error':'get method not supported'}
 	return JsonResponse(data)
 
+
+
+def sitemap(request, self):
+	urlset  = {'location':'rest'} 
+	return urlset 
